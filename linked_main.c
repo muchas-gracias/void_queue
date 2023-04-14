@@ -2,12 +2,10 @@
 
 int main()
 {
-    int *num0 = NULL;
-    int *num1 = NULL;
-
-    char *value0 = NULL;
-    char *value1 = NULL;
-
+    //inserting ints
+    int num0 = 10;
+    int num1 = 55;
+    int num2 = 87;
 
     linked_list_t *list = list_create();
     if(NULL == list)
@@ -15,51 +13,72 @@ int main()
         goto ERROR;
     }
 
-    num0 = calloc(1, sizeof(int));
-    if(NULL == num0)
-    {
-        goto DESTROY;
-    }
-    *num0 = 55;
+    list_enqueue(list, &num0);
+    list_enqueue(list, &num1);
+    list_enqueue(list, &num2);
 
-    num1 = calloc(1, sizeof(int));
-    if(NULL == num1)
-    {
-        free(num0);
-        goto DESTROY;
-    }
-    *num1 = 155;
+    print_integer_list(list);
 
-    value0 = "example";
-    value0 = calloc(1, sizeof(char));
-    if(NULL == value0)
+    int sampl = 807;
+    int *result = NULL;
+
+    result = list_get_nth_item(list, 2);
+    printf("RESULT IS %d\n", *result);
+
+
+    if(true == list_contains(list, &sampl))
     {
-        free(num0);
-        free(num1);
-        goto DESTROY;
+        printf("in the list\n");
+    }
+    else
+    {
+        printf("false\n");
     }
 
-    value1 = "another example";
-    value1 = calloc(1, sizeof(char));
-    if(NULL == value1)
-    {
-        free(num0);
-        free(num1);
-        free(value0);
-        goto DESTROY;
-    }
+    int val_to_remove = 87;
+    list_remove(list, &val_to_remove);
 
-
-    list_enqueue(list, num0);
-    list_enqueue(list, num1);
-    list_enqueue(list, value0);
-    list_enqueue(list, value1);
+    print_integer_list(list);
 
     list_destroy(list);
-    free(num0);
-    free(num1);
-    free(value0);
-    free(value1);
+
+// inserting strings
+    linked_list_t *llist = list_create();
+    if(NULL == llist)
+    {
+        goto ERROR;
+    }
+    char * word = "brent";
+    char * word1 = "davis";
+    char * word2 = "smith";
+    char * word3 = "bill";
+    char * word4 = "davidson";
+    char * word5 = "harley";
+    char * word6 = "bilal";
+    char * word7 = "dirk";
+    char * word8 = "sammy";
+
+    list_enqueue(llist, word);
+    list_enqueue(llist, word1);
+    list_enqueue(llist, word2);
+    list_enqueue(llist, word3);
+    list_enqueue(llist, word4);
+    list_enqueue(llist, word5);
+    list_enqueue(llist, word6);
+    list_enqueue(llist, word7);
+    list_enqueue(llist, word8);
+
+    print_char_list(llist);
+
+    list_remove(llist, "brent");
+
+    print_char_list(llist);
+
+    void * removed_string = NULL;
+    removed_string = list_get_nth_item(llist, 4);
+    printf("THE 5ND ITEM IS %s\n", (char*)removed_string);
+
+    list_destroy(llist);
     goto SUCCESS;
 
 

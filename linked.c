@@ -4,15 +4,20 @@
 linked_list_t *list_create()
 {
     linked_list_t *list = calloc(1, sizeof(linked_list_t));
+    if(NULL == list)
+    {
+        goto END;
+    }
     list->head = NULL;
     list->tail = NULL;
+END:
     return list;
 }
 
 void list_destroy(linked_list_t *list)
 {
     node_t *current = list->head;
-    while (current != NULL)
+    while (NULL != current)
     {
         node_t *temp = current;
         current = current->next;
@@ -23,10 +28,15 @@ void list_destroy(linked_list_t *list)
 
 void list_enqueue(linked_list_t *list, void *data)
 {
-    node_t *new_node = malloc(sizeof(node_t));
+    node_t *new_node = calloc(1, sizeof(node_t));
+    if(NULL ==  new_node)
+    {
+        goto END;
+    }
     new_node->data = data;
     new_node->next = NULL;
-    if (list->tail == NULL)
+
+    if (NULL == list->tail)
     {
         list->head = new_node;
     }
@@ -35,26 +45,187 @@ void list_enqueue(linked_list_t *list, void *data)
         list->tail->next = new_node;
     }
     list->tail = new_node;
+END:
+    return;
 }
 
 void *list_dequeue(linked_list_t *list)
 {
-    if (list->head == NULL)
+    void *data = NULL;
+
+    if (NULL == list->head)
     {
-        return NULL;
+        goto END;
     }
     else
     {
-        void *data = list->head->data;
+        data = list->head->data;
         node_t *temp = list->head;
         list->head = list->head->next;
-        if (list->head == NULL)
+        if (NULL == list->head)
         {
             list->tail = NULL;
         }
         free(temp);
-        return data;
     }
+END:
+    return NULL == list->head ? NULL : data;
 }
+
+bool list_contains(linked_list_t *list, void *data)
+{
+    bool b_return_value = false;
+
+    if (NULL == list || NULL == data)
+    {
+        goto END;
+    }
+
+    node_t *current = list->head;
+
+    while (NULL != current)
+    {
+        if (*(int*)current->data == *(int*)data)
+        {
+            b_return_value = true;
+        }
+        current = current->next;
+    }
+END:
+    return b_return_value;
+}
+
+
+void print_integer_list(linked_list_t *list)
+{
+    if ((NULL == list) || (NULL == list->head))
+    {
+        goto END;
+    }
+
+    node_t *current = list->head;
+    printf("[");
+
+    while (NULL != current)
+    {
+        if (NULL != current->data)
+        {
+            int *value_ptr = (int *)current->data;
+            printf("%d", *value_ptr);
+        }
+        if (NULL != current->next)
+        {
+            printf(", ");
+        }
+        current = current->next;
+    }
+    printf("]\n");
+END:
+    return;
+}
+
+void print_char_list(linked_list_t *list)
+{
+    if ((NULL == list) || (NULL == list->head))
+    {
+        goto END;
+    }
+
+    node_t *current = list->head;
+    printf("[");
+    while (NULL != current)
+    {
+        if (NULL != current->data)
+        {
+            char *value_ptr = (char *)current->data;
+            printf("%s", value_ptr);
+        }
+        if (NULL != current->next )
+        {
+            printf(", ");
+        }
+        current = current->next;
+    }
+    printf("]\n");
+END:
+    return;
+}
+
+
+void* list_get_nth_item(linked_list_t* list, int nth)
+{
+    void* result = NULL;
+
+    if ((NULL == list) || (nth < 0))
+    {
+        goto END;
+    }
+
+    node_t* current = list->head;
+    int index = 0;
+
+    while (NULL != current && index < nth)
+    {
+        current = current->next;
+        index++;
+    }
+
+    if (NULL != current)
+    {
+        result = current->data;
+    }
+
+END:
+    return result;
+}
+
+
+void list_remove(linked_list_t *list, void *p_value)
+{
+    int *value = NULL;
+
+    if (NULL == list)
+    {
+        goto END;
+    }
+
+    value = (int *) p_value;
+
+    node_t *current = list->head;
+    node_t *previous = NULL;
+    while (NULL != current)
+    {
+        if (*(int *)current->data == *value) // Compare integer values instead of addresses
+        {
+            if (NULL == previous)
+            {
+                // Removing the first item in the list
+                list->head = current->next;
+            }
+            else
+            {
+                previous->next = current->next;
+            }
+
+
+            if (NULL == current->next)
+            {
+                // Removing the last item in the list
+                list->tail = previous;
+            }
+
+            free(current);
+            return;
+        }
+        previous = current;
+        current = current->next;
+    }
+END:
+    return;
+}
+
+
+
+
 
 
