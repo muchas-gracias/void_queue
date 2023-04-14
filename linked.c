@@ -126,6 +126,7 @@ END:
 
 void print_char_list(linked_list_t *list)
 {
+    char *value_ptr = NULL;
     if ((NULL == list) || (NULL == list->head))
     {
         goto END;
@@ -137,7 +138,7 @@ void print_char_list(linked_list_t *list)
     {
         if (NULL != current->data)
         {
-            char *value_ptr = (char *)current->data;
+            value_ptr = (char *)current->data;
             printf("%s", value_ptr);
         }
         if (NULL != current->next )
@@ -189,17 +190,25 @@ void list_remove(linked_list_t *list, void *p_value)
         goto END;
     }
 
+    if (NULL == p_value)
+    {
+        goto END;
+    }
+    //setting to p_value
     value = (int *) p_value;
-
+    //pointing to the head of the linked li st
     node_t *current = list->head;
+    //holds the previous node
     node_t *previous = NULL;
+
+    //loop to compare current to the data passed into the function
     while (NULL != current)
     {
-        if (*(int *)current->data == *value) // Compare integer values instead of addresses
+        if (*(int *)current->data == *value)
         {
             if (NULL == previous)
             {
-                // Removing the first item in the list
+
                 list->head = current->next;
             }
             else
@@ -207,10 +216,10 @@ void list_remove(linked_list_t *list, void *p_value)
                 previous->next = current->next;
             }
 
-
+            //at the end of the list
             if (NULL == current->next)
             {
-                // Removing the last item in the list
+
                 list->tail = previous;
             }
 

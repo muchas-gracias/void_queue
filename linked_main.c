@@ -48,29 +48,29 @@ int main()
     {
         goto ERROR;
     }
-    char * word = "brent";
-    char * word1 = "davis";
-    char * word2 = "smith";
-    char * word3 = "bill";
-    char * word4 = "davidson";
-    char * word5 = "harley";
-    char * word6 = "bilal";
-    char * word7 = "dirk";
-    char * word8 = "sammy";
+    const char * word = "brent";
+    const char * word1 = "davis";
+    const char * word2 = "smith";
+    const char * word3 = "bill";
+    const char * word4 = "davidson";
+    const char * word5 = "harley";
+    const char * word6 = "bilal";
+    const char * word7 = "dirk";
+    const char * word8 = "sammy";
 
-    list_enqueue(llist, word);
-    list_enqueue(llist, word1);
-    list_enqueue(llist, word2);
-    list_enqueue(llist, word3);
-    list_enqueue(llist, word4);
-    list_enqueue(llist, word5);
-    list_enqueue(llist, word6);
-    list_enqueue(llist, word7);
-    list_enqueue(llist, word8);
+    list_enqueue(llist, (char*)word);
+    list_enqueue(llist, (char*)word1);
+    list_enqueue(llist, (char*)word2);
+    list_enqueue(llist, (char*)word3);
+    list_enqueue(llist, (char*)word4);
+    list_enqueue(llist, (char*)word5);
+    list_enqueue(llist, (char*)word6);
+    list_enqueue(llist, (char*)word7);
+    list_enqueue(llist, (char*)word8);
 
     print_char_list(llist);
 
-    list_remove(llist, "brent");
+    list_remove(llist, (char*)word);
 
     print_char_list(llist);
 
@@ -81,10 +81,6 @@ int main()
     list_destroy(llist);
     goto SUCCESS;
 
-
-
-DESTROY:
-    list_destroy(list);
 
 ERROR:
     exit(EXIT_FAILURE);
