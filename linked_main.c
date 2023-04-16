@@ -16,28 +16,29 @@ int main()
     list_enqueue(list, &num0);
     list_enqueue(list, &num1);
     list_enqueue(list, &num2);
-
+    printf("\nPRINTING FULL LIST...");
     print_integer_list(list);
 
     int sampl = 807;
     int *result = NULL;
 
     result = list_get_nth_item(list, 2);
-    printf("RESULT IS %d\n", *result);
+    printf("\nTHE 3RD ITEM IN THE LIST IS %d\n", *result);
 
 
     if(true == list_contains(list, &sampl))
     {
-        printf("in the list\n");
+        printf("\n%d IS IN THE LIST\n", sampl);
     }
     else
     {
-        printf("false\n");
+        printf("\n%d IS NOT IN THE LIST\n", sampl);
     }
 
     int val_to_remove = 87;
-    list_remove(list, &val_to_remove);
+    int_list_remove(list, &val_to_remove);
 
+    printf("\nPRINTING FULL LIST...");
     print_integer_list(list);
 
     list_destroy(list);
@@ -68,15 +69,24 @@ int main()
     list_enqueue(llist, (char*)word7);
     list_enqueue(llist, (char*)word8);
 
+    printf("\nPRINTING FULL LIST...");
     print_char_list(llist);
 
-    list_remove(llist, (char*)word);
+    char_list_remove(llist, (char*)word4);
 
+    printf("\nPRINTING FULL LIST AFTER REMOVING davidson...");
     print_char_list(llist);
 
     void * removed_string = NULL;
     removed_string = list_get_nth_item(llist, 4);
-    printf("THE 5ND ITEM IS %s\n", (char*)removed_string);
+    printf("THE 5ND ITEM  IN THE LIST IS %s\n", (char*)removed_string);
+
+
+    list_dequeue(llist);
+
+    printf("\nPRINTING FULL LIST AFTER DEQUEUE...");
+    print_char_list(llist);
+
 
     list_destroy(llist);
     goto SUCCESS;

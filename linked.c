@@ -181,7 +181,7 @@ END:
 }
 
 
-void list_remove(linked_list_t *list, void *p_value)
+void int_list_remove(linked_list_t *list, void *p_value)
 {
     int *value = NULL;
 
@@ -196,7 +196,7 @@ void list_remove(linked_list_t *list, void *p_value)
     }
     //setting to p_value
     value = (int *) p_value;
-    //pointing to the head of the linked li st
+    //pointing to the head of the linked list
     node_t *current = list->head;
     //holds the previous node
     node_t *previous = NULL;
@@ -225,6 +225,58 @@ void list_remove(linked_list_t *list, void *p_value)
 
             free(current);
             return;
+        }
+        previous = current;
+        current = current->next;
+    }
+END:
+    return;
+}
+
+void char_list_remove(linked_list_t *list, void *p_value)
+{
+    char *value = NULL;
+
+    if (NULL == list)
+    {
+        goto END;
+    }
+
+    if (NULL == p_value)
+    {
+        goto END;
+    }
+    //setting to p_value
+    value = (char *) p_value;
+    //pointing to the head of the linked list
+    node_t *current = list->head;
+    //holds the previous node
+    node_t *previous = NULL;
+
+    //loop to compare current to the data passed into the function
+    while (NULL != current)
+    {
+        if (strncmp((char *)current->data, value, strlen(value)) == 0)
+        {
+            if (NULL == previous)
+            {
+
+                list->head = current->next;
+            }
+            else
+            {
+                previous->next = current->next;
+            }
+
+            //at the end of the list
+            if (NULL == current->next)
+            {
+
+                list->tail = previous;
+            }
+
+            free(current);
+            goto END;
         }
         previous = current;
         current = current->next;

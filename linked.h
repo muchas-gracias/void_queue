@@ -35,6 +35,8 @@ void print_char_list(linked_list_t *list);
 
 void* list_get_nth_item(linked_list_t* list, int n);
 
-void list_remove(linked_list_t *list, void *p_value);
+void int_list_remove(linked_list_t *list, void *p_value);
+
+void char_list_remove(linked_list_t *list, void *p_value);
 
 #endif
