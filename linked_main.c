@@ -7,7 +7,7 @@ int main()
     int num1 = 55;
     int num2 = 87;
 
-    linked_list_t *list = list_create();
+    queue_t *list = queue_create();
     if(NULL == list)
     {
         goto ERROR;
@@ -44,7 +44,7 @@ int main()
     list_destroy(list);
 
 // inserting strings
-    linked_list_t *llist = list_create();
+    queue_t *llist = queue_create();
     if(NULL == llist)
     {
         goto ERROR;

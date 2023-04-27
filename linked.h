@@ -13,30 +13,30 @@ typedef struct node
     struct node *next;
 } node_t;
 
-typedef struct linked_list
+typedef struct queue_t
 {
     node_t *head;
     node_t *tail;
-} linked_list_t;
+} queue_t;
 
-linked_list_t *list_create();
+queue_t *queue_create();
 
-void list_destroy(linked_list_t *list);
+void list_destroy(queue_t *list);
 
-void list_enqueue(linked_list_t *list, void *data);
+void list_enqueue(queue_t *list, void *data);
 
-void *list_dequeue(linked_list_t *list);
+void *list_dequeue(queue_t *list);
 
-bool list_contains(linked_list_t *list, void *data);
+bool list_contains(queue_t *list, void *data);
 
-void print_integer_list(linked_list_t *list);
+void print_integer_list(queue_t *list);
 
-void print_char_list(linked_list_t *list);
+void print_char_list(queue_t *list);
 
-void* list_get_nth_item(linked_list_t* list, int n);
+void* list_get_nth_item(queue_t* list, int n);
 
-void int_list_remove(linked_list_t *list, void *p_value);
+void int_list_remove(queue_t *list, void *p_value);
 
-void char_list_remove(linked_list_t *list, void *p_value);
+void char_list_remove(queue_t *list, void *p_value);
 
 #endif

@@ -1,9 +1,9 @@
 #include "linked.h"
 
 
-linked_list_t *list_create()
+queue_t *queue_create()
 {
-    linked_list_t *list = calloc(1, sizeof(linked_list_t));
+    queue_t *list = calloc(1, sizeof(queue_t));
     if(NULL == list)
     {
         goto END;
@@ -14,7 +14,7 @@ END:
     return list;
 }
 
-void list_destroy(linked_list_t *list)
+void list_destroy(queue_t *list)
 {
     node_t *current = list->head;
     while (NULL != current)
@@ -26,7 +26,7 @@ void list_destroy(linked_list_t *list)
     free(list);
 }
 
-void list_enqueue(linked_list_t *list, void *data)
+void list_enqueue(queue_t *list, void *data)
 {
     node_t *new_node = calloc(1, sizeof(node_t));
     if(NULL ==  new_node)
@@ -49,7 +49,9 @@ END:
     return;
 }
 
-void *list_dequeue(linked_list_t *list)
+
+
+void *list_dequeue(queue_t *list)
 {
     void *data = NULL;
 
@@ -72,7 +74,7 @@ END:
     return NULL == list->head ? NULL : data;
 }
 
-bool list_contains(linked_list_t *list, void *data)
+bool list_contains(queue_t *list, void *data)
 {
     bool b_return_value = false;
 
@@ -96,7 +98,7 @@ END:
 }
 
 
-void print_integer_list(linked_list_t *list)
+void print_integer_list(queue_t *list)
 {
     if ((NULL == list) || (NULL == list->head))
     {
@@ -124,7 +126,7 @@ END:
     return;
 }
 
-void print_char_list(linked_list_t *list)
+void print_char_list(queue_t *list)
 {
     char *value_ptr = NULL;
     if ((NULL == list) || (NULL == list->head))
@@ -153,7 +155,7 @@ END:
 }
 
 
-void* list_get_nth_item(linked_list_t* list, int nth)
+void* list_get_nth_item(queue_t* list, int nth)
 {
     void* result = NULL;
 
@@ -181,7 +183,7 @@ END:
 }
 
 
-void int_list_remove(linked_list_t *list, void *p_value)
+void int_list_remove(queue_t *list, void *p_value)
 {
     int *value = NULL;
 
@@ -233,7 +235,7 @@ END:
     return;
 }
 
-void char_list_remove(linked_list_t *list, void *p_value)
+void char_list_remove(queue_t *list, void *p_value)
 {
     char *value = NULL;
 
