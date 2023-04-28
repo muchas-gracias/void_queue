@@ -326,12 +326,11 @@ void remove_all(queue_t *queue)
     {
         goto EXIT;
     }
-    printf("QUEUE SIZE %ld\n", queue->size);
+
     while(queue->size > 0)
     {
         queue_dequeue(queue);
     }
-
 
 EXIT:
     return;
