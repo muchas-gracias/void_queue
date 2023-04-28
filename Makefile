@@ -4,16 +4,16 @@ CFLAGS += -Wstack-usage=1024 -Wfloat-equal -Waggregate-return -Winline
 
 .PHONY: all clean
 
-all: linked
+all: queue
 
 clean:
-	rm -f *.o linked
+	rm -f *.o queue
 
-linked_main.o: linked_main.c linked.h
-	$(CC) $(CFLAGS) -c linked_main.c -o linked_main.o
+queue_main.o: queue_main.c queue.h
+	$(CC) $(CFLAGS) -c queue_main.c -o queue_main.o
 
-linked.o: linked.c linked.h
-	$(CC) $(CFLAGS) -c linked.c -o linked.o
+queue.o: queue.c queue.h
+	$(CC) $(CFLAGS) -c queue.c -o queue.o
 
-linked: linked_main.o linked.o
-	$(CC) $(CFLAGS) linked_main.o linked.o -o linked
+queue: queue_main.o queue.o
+	$(CC) $(CFLAGS) queue_main.o queue.o -o queue
