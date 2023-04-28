@@ -7,12 +7,21 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/**
+ * @brief Defines a node in the queue, which contains a void pointer
+ *
+ */
 typedef struct node
 {
     void *data;
     struct node *next;
 } node_t;
 
+/**
+ * @brief Queue structure that contains a pointer to the head and tail nodes,
+ * as well as a size variable
+ *
+ */
 typedef struct queue_t
 {
     node_t *head;
@@ -20,8 +29,14 @@ typedef struct queue_t
     size_t size;
 } queue_t;
 
+
 queue_t *queue_create();
 
+/**
+ * @brief
+ *
+ * @param queue
+ */
 void queue_destroy(queue_t *queue);
 
 void queue_enqueue(queue_t *queue, void *data);

@@ -2,6 +2,7 @@
 
 int main()
 {
+    int return_flag = 1;
     //inserting ints
     int num0 = 10;
     int num1 = 55;
@@ -10,7 +11,7 @@ int main()
     queue_t * queue= queue_create();
     if(NULL == queue)
     {
-        goto ERROR;
+        goto EXIT;
     }
     //enqueuing each number
     queue_enqueue(queue, &num0);
@@ -53,7 +54,7 @@ int main()
     queue_t *re_queue = queue_create();
     if(NULL == re_queue)
     {
-        goto ERROR;
+        goto EXIT;
     }
     const char * word = "brent";
     const char * word1 = "davis";
@@ -97,12 +98,9 @@ int main()
 
     queue_destroy(re_queue);
     re_queue = NULL;
-    goto SUCCESS;
+    return_flag = 0;
 
 
-ERROR:
-    exit(EXIT_FAILURE);
-
-SUCCESS:
-    exit(EXIT_SUCCESS);
+EXIT:
+    return return_flag == 0? 0:1;
 }
