@@ -41,6 +41,7 @@ queue_t * queue_create();
  * queue.
  *
  * @param queue
+ * @return int 0=success 1=failure
  */
 int queue_destroy(queue_t * queue);
 
