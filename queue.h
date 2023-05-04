@@ -1,11 +1,11 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * @brief Defines a node in the queue, which contains a void pointer
@@ -13,8 +13,8 @@
  */
 typedef struct node
 {
-    void *data;
-    struct node *next;
+    void *        data;
+    struct node * next;
 } node_t;
 
 /**
@@ -24,9 +24,9 @@ typedef struct node
  */
 typedef struct queue_t
 {
-    node_t *head;
-    node_t *tail;
-    size_t size;
+    node_t * head;
+    node_t * tail;
+    size_t   size;
 } queue_t;
 
 /**
@@ -34,7 +34,7 @@ typedef struct queue_t
  *
  * @return queue_t*
  */
-queue_t *queue_create();
+queue_t * queue_create();
 
 /**
  * @brief Destroy's the queue by freeing each node and finally freeing the
@@ -42,7 +42,7 @@ queue_t *queue_create();
  *
  * @param queue
  */
-int queue_destroy(queue_t *queue);
+int queue_destroy(queue_t * queue);
 
 /**
  * @brief Adds a new node at the end of the queue.
@@ -50,7 +50,7 @@ int queue_destroy(queue_t *queue);
  * @param queue
  * @param data
  */
-void queue_enqueue(queue_t *queue, void *data);
+void queue_enqueue(queue_t * queue, void * data);
 
 /**
  * @brief Take the first node in the queue.
@@ -58,7 +58,7 @@ void queue_enqueue(queue_t *queue, void *data);
  * @param queue
  * @return void*
  */
-void *queue_dequeue(queue_t *queue);
+void * queue_dequeue(queue_t * queue);
 
 /**
  * @brief Checks if a give data value is present in the queue.
@@ -68,21 +68,21 @@ void *queue_dequeue(queue_t *queue);
  * @return true
  * @return false
  */
-bool queue_contains(queue_t *queue, void *data);
+bool queue_contains(queue_t * queue, void * data);
 
 /**
  * @brief Print function for integers
  *
  * @param queue
  */
-void print_integer_queue(queue_t *queue);
+void print_integer_queue(queue_t * queue);
 
 /**
  * @brief Print function for strings.
  *
  * @param queue
  */
-void print_char_queue(queue_t *queue);
+void print_char_queue(queue_t * queue);
 
 /**
  * @brief Gets the nth item in the queue/list.
@@ -91,7 +91,7 @@ void print_char_queue(queue_t *queue);
  * @param n
  * @return void*
  */
-void* queue_get_nth_item(queue_t* queue, int n);
+void * queue_get_nth_item(queue_t * queue, int n);
 
 /**
  * @brief Removes an integer item from the queue
@@ -100,7 +100,7 @@ void* queue_get_nth_item(queue_t* queue, int n);
  * @param p_value
  * @return int 0=success 1=failure
  */
-int int_queue_remove(queue_t *queue, void *p_value);
+int int_queue_remove(queue_t * queue, void * p_value);
 
 /**
  * @brief Removes a string item from the queue
@@ -109,13 +109,13 @@ int int_queue_remove(queue_t *queue, void *p_value);
  * @param p_value
  * @return int 0=success 1=failure
  */
-int char_queue_remove(queue_t *queue, void *p_value);
+int char_queue_remove(queue_t * queue, void * p_value);
 
 /**
  * @brief Removes every node in the queue by calling queue_dequeue function.
  *
  * @param queue
  */
-void remove_all(queue_t *queue);
+void remove_all(queue_t * queue);
 
 #endif

@@ -1,10 +1,9 @@
 #include "queue.h"
 
-
-queue_t *queue_create()
+queue_t * queue_create()
 {
-    queue_t *queue = calloc(1, sizeof(queue_t));
-    if(NULL == queue)
+    queue_t * queue = calloc(1, sizeof(queue_t));
+    if (NULL == queue)
     {
         goto EXIT;
     }
@@ -17,21 +16,21 @@ EXIT:
     return queue;
 }
 
-int queue_destroy(queue_t *queue)
+int queue_destroy(queue_t * queue)
 {
     int return_flag = 1;
-    if(NULL ==  queue)
+    if (NULL == queue)
     {
         perror("Memory Error");
         goto EXIT;
     }
 
-    node_t *current = queue->head;
+    node_t * current = queue->head;
 
     while (NULL != current)
     {
-        node_t *temp = current;
-        current = current->next;
+        node_t * temp = current;
+        current       = current->next;
 
         free(temp);
         temp = NULL;
@@ -44,17 +43,17 @@ EXIT:
     return return_flag;
 }
 
-void queue_enqueue(queue_t *queue, void *data)
+void queue_enqueue(queue_t * queue, void * data)
 {
-    if(NULL ==  queue)
+    if (NULL == queue)
     {
         perror("Memory Error");
         goto EXIT;
     }
 
-    node_t *new_node = calloc(1, sizeof(node_t));
+    node_t * new_node = calloc(1, sizeof(node_t));
 
-    if(NULL ==  new_node)
+    if (NULL == new_node)
     {
         goto EXIT;
     }
@@ -76,11 +75,9 @@ EXIT:
     return;
 }
 
-
-
-void *queue_dequeue(queue_t * queue)
+void * queue_dequeue(queue_t * queue)
 {
-    void *data = NULL;
+    void * data = NULL;
 
     if (NULL == queue->head)
     {
@@ -88,9 +85,9 @@ void *queue_dequeue(queue_t * queue)
     }
     else
     {
-        data = queue->head->data;
-        node_t *temp = queue->head;
-        queue->head = queue->head->next;
+        data          = queue->head->data;
+        node_t * temp = queue->head;
+        queue->head   = queue->head->next;
         if (NULL == queue->head)
         {
             queue->tail = NULL;
@@ -104,11 +101,11 @@ EXIT:
     return NULL == queue->head ? NULL : data;
 }
 
-bool queue_contains(queue_t *queue, void *data)
+bool queue_contains(queue_t * queue, void * data)
 {
     bool b_return_value = false;
 
-    if(NULL ==  queue)
+    if (NULL == queue)
     {
         perror("Memory Error");
         goto EXIT;
@@ -119,11 +116,11 @@ bool queue_contains(queue_t *queue, void *data)
         goto EXIT;
     }
 
-    node_t *current = queue->head;
+    node_t * current = queue->head;
 
     while (NULL != current)
     {
-        if (*(int*)current->data == *(int*)data)
+        if (*(int *)current->data == *(int *)data)
         {
             b_return_value = true;
         }
@@ -133,22 +130,21 @@ EXIT:
     return b_return_value;
 }
 
-
-void print_integer_queue(queue_t *queue)
+void print_integer_queue(queue_t * queue)
 {
     if ((NULL == queue) || (NULL == queue->head))
     {
         goto EXIT;
     }
 
-    node_t *current = queue->head;
+    node_t * current = queue->head;
     fprintf(stdout, "[");
 
     while (NULL != current)
     {
         if (NULL != current->data)
         {
-            int *value_ptr = (int *)current->data;
+            int * value_ptr = (int *)current->data;
             fprintf(stdout, "%d", *value_ptr);
         }
         if (NULL != current->next)
@@ -162,15 +158,15 @@ EXIT:
     return;
 }
 
-void print_char_queue(queue_t *queue)
+void print_char_queue(queue_t * queue)
 {
-    char *value_ptr = NULL;
+    char * value_ptr = NULL;
     if ((NULL == queue) || (NULL == queue->head))
     {
         goto EXIT;
     }
 
-    node_t *current = queue->head;
+    node_t * current = queue->head;
     fprintf(stdout, "[");
 
     while (NULL != current)
@@ -180,7 +176,7 @@ void print_char_queue(queue_t *queue)
             value_ptr = (char *)current->data;
             fprintf(stdout, "%s", value_ptr);
         }
-        if (NULL != current->next )
+        if (NULL != current->next)
         {
             fprintf(stdout, ", ");
         }
@@ -192,18 +188,17 @@ EXIT:
     return;
 }
 
-
-void* queue_get_nth_item(queue_t* queue, int nth)
+void * queue_get_nth_item(queue_t * queue, int nth)
 {
-    void* result = NULL;
+    void * result = NULL;
 
     if ((NULL == queue) || (nth < 0))
     {
         goto EXIT;
     }
 
-    node_t* current = queue->head;
-    int index = 0;
+    node_t * current = queue->head;
+    int      index   = 0;
 
     while (NULL != current && index < nth)
     {
@@ -220,11 +215,10 @@ EXIT:
     return result;
 }
 
-
-int int_queue_remove(queue_t *queue, void *p_value)
+int int_queue_remove(queue_t * queue, void * p_value)
 {
-    int return_flag = 1;
-    int *value = NULL;
+    int   return_flag = 1;
+    int * value       = NULL;
 
     if (NULL == queue)
     {
@@ -235,14 +229,14 @@ int int_queue_remove(queue_t *queue, void *p_value)
     {
         goto EXIT;
     }
-    //setting to p_value
-    value = (int *) p_value;
-    //pointing to the head of the queue
-    node_t *current = queue->head;
-    //holds the previous node
-    node_t *previous = NULL;
+    // setting to p_value
+    value = (int *)p_value;
+    // pointing to the head of the queue
+    node_t * current = queue->head;
+    // holds the previous node
+    node_t * previous = NULL;
 
-    //loop to compare current to the data passed into the function
+    // loop to compare current to the data passed into the function
     while (NULL != current)
     {
         if (*(int *)current->data == *value)
@@ -257,7 +251,7 @@ int int_queue_remove(queue_t *queue, void *p_value)
                 previous->next = current->next;
             }
 
-            //at the end of the queue
+            // at the end of the queue
             if (NULL == current->next)
             {
 
@@ -272,7 +266,7 @@ int int_queue_remove(queue_t *queue, void *p_value)
             goto EXIT;
         }
         previous = current;
-        current = current->next;
+        current  = current->next;
     }
 
 EXIT:
@@ -281,8 +275,8 @@ EXIT:
 
 int char_queue_remove(queue_t * queue, void * p_value)
 {
-    int return_flag = 1;
-    char *value = NULL;
+    int    return_flag = 1;
+    char * value       = NULL;
 
     if (NULL == queue)
     {
@@ -293,14 +287,14 @@ int char_queue_remove(queue_t * queue, void * p_value)
     {
         goto EXIT;
     }
-    //setting to p_value
-    value = (char *) p_value;
-    //pointing to the head of the queue
-    node_t *current = queue->head;
-    //holds the previous node
-    node_t *previous = NULL;
+    // setting to p_value
+    value = (char *)p_value;
+    // pointing to the head of the queue
+    node_t * current = queue->head;
+    // holds the previous node
+    node_t * previous = NULL;
 
-    //loop to compare current to the data passed into the function
+    // loop to compare current to the data passed into the function
     while (NULL != current)
     {
         if (strncmp((char *)current->data, value, strlen(value)) == 0)
@@ -315,7 +309,7 @@ int char_queue_remove(queue_t * queue, void * p_value)
                 previous->next = current->next;
             }
 
-            //at the end of the queue
+            // at the end of the queue
             if (NULL == current->next)
             {
 
@@ -323,27 +317,27 @@ int char_queue_remove(queue_t * queue, void * p_value)
             }
 
             free(current);
-            current = NULL;
+            current     = NULL;
             return_flag = 0;
 
             queue->size--;
             goto EXIT;
         }
         previous = current;
-        current = current->next;
+        current  = current->next;
     }
 EXIT:
     return return_flag;
 }
 
-void remove_all(queue_t *queue)
+void remove_all(queue_t * queue)
 {
-    if(NULL == queue)
+    if (NULL == queue)
     {
         goto EXIT;
     }
 
-    while(queue->size > 0)
+    while (queue->size > 0)
     {
         queue_dequeue(queue);
     }
@@ -351,7 +345,3 @@ void remove_all(queue_t *queue)
 EXIT:
     return;
 }
-
-
-
-
