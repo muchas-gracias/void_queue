@@ -32,8 +32,10 @@ void queue_destroy(queue_t *queue)
         node_t *temp = current;
         current = current->next;
         free(temp);
+        temp = NULL;
     }
     free(queue);
+    queue = NULL;
 EXIT:
     return;
 }
@@ -90,6 +92,8 @@ void *queue_dequeue(queue_t * queue)
             queue->tail = NULL;
         }
         free(temp);
+        temp = NULL;
+
         queue->size--;
     }
 EXIT:
@@ -256,6 +260,8 @@ void int_queue_remove(queue_t *queue, void *p_value)
             }
 
             free(current);
+            current = NULL;
+
             queue->size--;
             goto EXIT;
         }
@@ -310,6 +316,8 @@ void char_queue_remove(queue_t * queue, void * p_value)
             }
 
             free(current);
+            current = NULL;
+
             queue->size--;
             goto EXIT;
         }
