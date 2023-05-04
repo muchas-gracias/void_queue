@@ -42,7 +42,7 @@ queue_t *queue_create();
  *
  * @param queue
  */
-void queue_destroy(queue_t *queue);
+int queue_destroy(queue_t *queue);
 
 /**
  * @brief Adds a new node at the end of the queue.
@@ -94,20 +94,22 @@ void print_char_queue(queue_t *queue);
 void* queue_get_nth_item(queue_t* queue, int n);
 
 /**
- * @brief Removes an integer item from the queue.
+ * @brief Removes an integer item from the queue
  *
  * @param queue
  * @param p_value
+ * @return int 0=success 1=failure
  */
-void int_queue_remove(queue_t *queue, void *p_value);
+int int_queue_remove(queue_t *queue, void *p_value);
 
 /**
- * @brief Removes a string item from the queue.
+ * @brief Removes a string item from the queue
  *
  * @param queue
  * @param p_value
+ * @return int 0=success 1=failure
  */
-void char_queue_remove(queue_t *queue, void *p_value);
+int char_queue_remove(queue_t *queue, void *p_value);
 
 /**
  * @brief Removes every node in the queue by calling queue_dequeue function.

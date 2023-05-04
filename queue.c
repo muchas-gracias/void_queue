@@ -17,8 +17,9 @@ EXIT:
     return queue;
 }
 
-void queue_destroy(queue_t *queue)
+int queue_destroy(queue_t *queue)
 {
+    int return_flag = 1;
     if(NULL ==  queue)
     {
         perror("Memory Error");
@@ -31,13 +32,16 @@ void queue_destroy(queue_t *queue)
     {
         node_t *temp = current;
         current = current->next;
+
         free(temp);
         temp = NULL;
     }
     free(queue);
     queue = NULL;
+
+    return_flag = 0;
 EXIT:
-    return;
+    return return_flag;
 }
 
 void queue_enqueue(queue_t *queue, void *data)
@@ -138,22 +142,22 @@ void print_integer_queue(queue_t *queue)
     }
 
     node_t *current = queue->head;
-    printf("[");
+    fprintf(stdout, "[");
 
     while (NULL != current)
     {
         if (NULL != current->data)
         {
             int *value_ptr = (int *)current->data;
-            printf("%d", *value_ptr);
+            fprintf(stdout, "%d", *value_ptr);
         }
         if (NULL != current->next)
         {
-            printf(", ");
+            fprintf(stdout, ", ");
         }
         current = current->next;
     }
-    printf("]\n");
+    fprintf(stdout, "]\n");
 EXIT:
     return;
 }
@@ -167,23 +171,23 @@ void print_char_queue(queue_t *queue)
     }
 
     node_t *current = queue->head;
-    printf("[");
+    fprintf(stdout, "[");
 
     while (NULL != current)
     {
         if (NULL != current->data)
         {
             value_ptr = (char *)current->data;
-            printf("%s", value_ptr);
+            fprintf(stdout, "%s", value_ptr);
         }
         if (NULL != current->next )
         {
-            printf(", ");
+            fprintf(stdout, ", ");
         }
         current = current->next;
     }
 
-    printf("]\n");
+    fprintf(stdout, "]\n");
 EXIT:
     return;
 }
@@ -217,8 +221,9 @@ EXIT:
 }
 
 
-void int_queue_remove(queue_t *queue, void *p_value)
+int int_queue_remove(queue_t *queue, void *p_value)
 {
+    int return_flag = 1;
     int *value = NULL;
 
     if (NULL == queue)
@@ -263,6 +268,7 @@ void int_queue_remove(queue_t *queue, void *p_value)
             current = NULL;
 
             queue->size--;
+            return_flag = 0;
             goto EXIT;
         }
         previous = current;
@@ -270,11 +276,12 @@ void int_queue_remove(queue_t *queue, void *p_value)
     }
 
 EXIT:
-    return;
+    return return_flag;
 }
 
-void char_queue_remove(queue_t * queue, void * p_value)
+int char_queue_remove(queue_t * queue, void * p_value)
 {
+    int return_flag = 1;
     char *value = NULL;
 
     if (NULL == queue)
@@ -317,6 +324,7 @@ void char_queue_remove(queue_t * queue, void * p_value)
 
             free(current);
             current = NULL;
+            return_flag = 0;
 
             queue->size--;
             goto EXIT;
@@ -325,7 +333,7 @@ void char_queue_remove(queue_t * queue, void * p_value)
         current = current->next;
     }
 EXIT:
-    return;
+    return return_flag;
 }
 
 void remove_all(queue_t *queue)

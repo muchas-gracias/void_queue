@@ -18,7 +18,7 @@ int main()
     queue_enqueue(queue, &num1);
     queue_enqueue(queue, &num2);
 
-    printf("\nPRINTING FULL LIST...");
+    fprintf(stdout, "PRINTING FULL LIST...=>");
     print_integer_queue(queue);
 
     int sampl = 807;
@@ -26,23 +26,33 @@ int main()
 
     //getting the nth item in the queue
     result = queue_get_nth_item(queue, 2);
-    printf("\nTHE 3RD ITEM IN THE LIST IS %d\n", *result);
+    if(NULL != result)
+    {
+        fprintf(stdout, "THE 3RD ITEM IN THE LIST IS...=> %d\n", *result);
+    }
+    else
+    {
+        fprintf(stdout, "Unable to retrieve the value...not in the queue\n");
+    }
 
 
     if(true == queue_contains(queue, &sampl))
     {
-        printf("\n%d IS IN THE LIST\n", sampl);
+        fprintf(stdout, "\n%d IS IN THE LIST\n", sampl);
     }
     else
     {
-        printf("\n%d IS NOT IN THE LIST\n", sampl);
+        fprintf(stdout, "\n%d IS NOT IN THE LIST\n", sampl);
     }
 
     //removing and item from the queue
     int val_to_remove = 87;
-    int_queue_remove(queue, &val_to_remove);
+    if( 1 == int_queue_remove(queue, &val_to_remove))
+    {
+        fprintf(stdout, "\nUnable to remove value...not in the queue\n");
+    }
 
-    printf("\nPRINTING FULL LIST...");
+    fprintf(stdout, "\nPRINTING FULL LIST...=>");
     print_integer_queue(queue);
 
     remove_all(queue);
@@ -76,27 +86,43 @@ int main()
     queue_enqueue(re_queue, (char*)word7);
     queue_enqueue(re_queue, (char*)word8);
 
-    printf("\nPRINTING FULL LIST...");
+    fprintf(stdout, "\nPRINTING FULL LIST...=>");
     print_char_queue(re_queue);
 
-    char_queue_remove(re_queue, (char*)word4);
+    if (1 == char_queue_remove(re_queue, (char*)word4))
+    {
+        fprintf(stdout, "Unable to remove value...not in the queue\n");
+    }
 
-    printf("\nPRINTING FULL LIST AFTER REMOVING davidson...");
+    fprintf(stdout, "\nPRINTING FULL LIST AFTER REMOVING davidson...");
     print_char_queue(re_queue);
 
     void * removed_string = NULL;
     removed_string = queue_get_nth_item(re_queue, 4);
-    printf("THE 5ND ITEM  IN THE LIST IS %s\n", (char*)removed_string);
+
+    if(NULL != removed_string)
+    {
+        fprintf(stdout, "\nRemoved value:THE 5TH ITEM IN THE LIST IS==> ");
+        fprintf(stdout, "%s\n", (char*)removed_string);
+    }
+    else
+    {
+        fprintf(stdout, "\nUnable to retrieve the value...not in the queue\n");
+    }
+
 
 
     queue_dequeue(re_queue);
 
-    printf("\nPRINTING FULL LIST AFTER DEQUEUE...");
+    fprintf(stdout, "\nPRINTING FULL LIST AFTER DEQUEUE...=>");
     print_char_queue(re_queue);
 
     remove_all(re_queue);
 
-    queue_destroy(re_queue);
+    if(1 == queue_destroy(re_queue))
+    {
+        fprintf(stdout, "Unable to destroy the queue\n");
+    }
     re_queue = NULL;
     return_flag = 0;
 
