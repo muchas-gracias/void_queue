@@ -85,7 +85,9 @@ void * queue_dequeue(queue_t * queue)
     }
     else
     {
+        //because I am returning the data
         data          = queue->head->data;
+
         node_t * temp = queue->head;
         queue->head   = queue->head->next;
         if (NULL == queue->head)
